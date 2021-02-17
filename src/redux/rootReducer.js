@@ -1,4 +1,4 @@
-const initialState = { currentUser:[], users:[], seeds:[] };
+const initialState = { currentUser:[], users:[], seeds:[], gardens:[], plants:[], plantImages:[] };
 export default (state = initialState, action )=>{
     switch (action.type) {
       case 'SET_USER':
@@ -21,11 +21,21 @@ export default (state = initialState, action )=>{
           ...state,
           seeds: action.seed
         };
-      // case 'LOAD_TRICKS':
-      //   return {
-      //     ...state,
-      //     tricks: action.trick
-      //   };
+      case 'LOAD_GARDENS':
+        return {
+          ...state,
+          gardens: action.garden
+        };
+      case 'LOAD_PLANTS':
+        return {
+          ...state,
+          plants: action.plant
+        };
+      case 'LOAD_PLANT_IMAGES':
+        return {
+          ...state,
+          plantImages: action.plantImage
+        };
       // case 'LOAD_ELEMENTS':
       //   return {
       //     ...state,

@@ -13,7 +13,7 @@ import { makeStyles, useTheme  } from "@material-ui/core/styles";
 import MenuIcon from '@material-ui/icons/Menu';
 import { withRouter } from "react-router-dom";
 import Hidden from '@material-ui/core/Hidden';
-import Account from "./Account"
+import Account from "../Pages/Account"
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -97,22 +97,6 @@ const NavBar = props => {
       history.push(`/gardens`)
       setMobileOpen(false)
     }}, 
-    // {name: "LIBRARY", onClick: () => {
-    //   history.push(`/library`)
-    //   setMobileOpen(false)
-    // }}, 
-    // {name: "STUDENT PROGRAMS", onClick: () => {
-    //   history.push(`/studentprograms`)
-    //   setMobileOpen(false)
-    // }}, 
-    // {name: "JOIN", onClick: () => {
-    //   history.push(`/join`)
-    //   setMobileOpen(false)
-    // }},
-    // {name: "CONTACT", onClick: () => {
-    //   history.push(`/contact`)
-    //   setMobileOpen(false)
-    // }},
   ]      
   // for Account Icon
   const [anchorEl, setAnchorEl] = React.useState(null);

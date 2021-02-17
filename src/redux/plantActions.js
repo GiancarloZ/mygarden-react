@@ -2,16 +2,16 @@
 
 const BASE_URL = 'http://localhost:8080/api';
 const HEROKU_URL = ""
-const GARDENS_URL = BASE_URL + '/gardens';
+const PLANTS_URL = BASE_URL + '/plants';
 // const PERSIST_URL = BASE_URL + '/persist';
 // const LOGIN_URL = BASE_URL + '/login';
 // const SPECIFIC_USER_URL = id => USERS_URL + '/' + id;
 
 // Redux Actions
 
-const loadGardenAction = gardenObj => ({
-  type: 'LOAD_GARDENS',
-  garden: gardenObj
+const loadPlantAction = plantObj => ({
+  type: 'LOAD_PLANTS',
+  plant: plantObj
 });
 
 // const clearUserAction = () => ({
@@ -20,40 +20,39 @@ const loadGardenAction = gardenObj => ({
 
 // Fetch
 
-const loadAllGardens = () => dispatch => {
+const loadAllPlants = () => dispatch => {
   const config = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },
   };
-  fetch(GARDENS_URL, config)
+  fetch(PLANTS_URL, config)
     .then(r => r.json())
     .then(data => {
         console.log(data)
-      dispatch(loadGardenAction(data));
+      dispatch(loadPlantAction(data));
      
     });
 };
 
-const newGarden = gardenObj => dispatch => {
-  console.log(gardenObj)
-  console.log('didididid')
+const newPlant = plantObj => dispatch => {
+  console.log(plantObj)
   const config = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(gardenObj)
+    body: JSON.stringify(plantObj)
   };
-  fetch(GARDENS_URL, config)
+  fetch(PLANTS_URL, config)
     .then(r => r.json())
     .then(data => {
       console.log(data)
-      dispatch(loadAllGardens);
+      dispatch(loadAllPlants);
     });
 };
 export default {
-    loadAllGardens,
-    newGarden,
+    loadAllPlants,
+    newPlant,
   };

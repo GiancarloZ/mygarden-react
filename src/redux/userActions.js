@@ -62,16 +62,6 @@ const newUserToDB = userObj => dispatch => {
     });
 };
 
-const deleteUserFromDB = userId => dispatch => {
-  const config = {
-    method: 'DELETE'
-  };
-  fetch(SPECIFIC_USER_URL(userId), config).then(r => {
-    dispatch(clearUserAction());
-    localStorage.clear();
-  });
-};
-
 const loginUserToDB = userCredentials => dispatch => {
   const config = {
     method: 'POST',
@@ -84,12 +74,17 @@ const loginUserToDB = userCredentials => dispatch => {
     .then(r => r.json())
     .then(data => {
       console.log(data)
-      dispatch(setUserAction(data.user));
-      localStorage.setItem('token', data.token);
+      if (data.user){
+        dispatch(setUserAction(data.user));
+        localStorage.setItem('token', data.token);
+        return data.user
+      } else {
+        return "Login Failed!"
+      }
     })
     .catch(err => {
       console.log(err)
-  });
+    });
 };
 
 const persistUser = () => dispatch => {
@@ -113,6 +108,15 @@ const logoutUser = () => dispatch => {
   localStorage.clear();
 };
 
+const deleteUserFromDB = userId => dispatch => {
+  const config = {
+    method: 'DELETE'
+  };
+  fetch(SPECIFIC_USER_URL(userId), config).then(r => {
+    dispatch(clearUserAction());
+    localStorage.clear();
+  });
+};
 export default {
   loadAllUsers,
   newUserToDB,

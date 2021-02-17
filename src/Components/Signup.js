@@ -2,21 +2,22 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import userActions from '../redux/userActions';
 import { useSelector } from 'react-redux';
-import {Button, Container, Grid, TextField, Typography} from "@material-ui/core";
+import {Button, Container, Grid, TextField, Typography, CircularProgress} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
+import MuiAlert from '@material-ui/lab/Alert';
 const useStyles = makeStyles(theme => ({
   root:{
     display: "flex",
-    paddingTop: 60,
-    marginLeft: 100,
-    marginRight: 100
-
   },
   container: {
     padding: theme.spacing(3),
-    // paddingTop: 100
-    marginTop: 64
+    height: "100vh"
+  },
+  alert: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
   },
   // login: {
   //     padding: theme.spacing(0),
@@ -32,7 +33,7 @@ const Signup = props => {
 
   // initializing dispatch
   const dispatch = useDispatch();
-  const user = useSelector(state => state.currentUser.email) || false;
+  const user = useSelector(state => state.currentUser) || false;
   // Setting up local state using the useState hook
   const [signupForm, setSignupForm] = useState({
     email: '',
@@ -42,14 +43,50 @@ const Signup = props => {
   // Controlled form functions
   const handleChange = e => 
     setSignupForm({ ...signupForm, [e.target.name]: e.target.value });
-    
+  
+  const [emailError, setEmailError] = useState(false)
+  const [passError, setPassError] = useState(false)
+  const [loading, setLoading] = useState(false)
+  //Validation Alerts
+  function Alert(props) {
+    return <div><MuiAlert elevation={6} variant="filled" {...props} /></div>;
+  }
+  const passErrorAlert = () => {
+    return (
+      <div className={classes.alert}>
+        <Alert severity="error">"Password can not be empty!"</Alert>
+      </div>
+    )
+  }
+  const emailErrorAlert = () => {
+    return (
+      <div className={classes.alert}>
+        <Alert severity="error">"Email can not be empty!"</Alert>
+      </div>
+    )
+  }  
   const handleSubmit = e => {
     e.preventDefault();
     const { history } = props;
-    dispatch(userActions.newUserToDB(signupForm));
-    console.log(signupForm)
-    console.log("here")
-    history.push('/home')
+
+    if (signupForm.email.length === 0){
+      setEmailError(true)
+    
+    }
+    if (signupForm.password.length === 0){
+      setPassError(true)
+    }
+    
+    if (signupForm.email.length > 0 && signupForm.password.length > 0){
+      setLoading(true)
+      console.log(user)
+      dispatch(userActions.newUserToDB(signupForm));
+      console.log(user)
+      if(!!user){
+        setLoading(false)
+        history.push('/home')
+      }
+    }
   };
 
   const handleClickOpen = () => {
@@ -98,15 +135,20 @@ const Signup = props => {
               </Button>
             </Grid>
           </Grid>
+          <div style={{marginTop: 10}}>
+          <Button color="primary" fullwWidth onClick={() => history.push("/login")}>already a user? click here to login</Button>
+          </div>
         </form>
       </Container>
       </>
 
   // Component code
   return (
-      <>
-      {signup}
-      </>
+    <div style={{paddingTop: 60}}>
+    {emailError ? emailErrorAlert() : <></>}
+    {passError ? passErrorAlert() : <></>}
+    {!loading ? signup : <div className={classes.container}><CircularProgress /></div>}
+    </div>
   );
 };
 

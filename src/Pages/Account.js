@@ -21,6 +21,10 @@ const Account = props => {
       history.push("/login")
       setAnchorEl(false)
     }
+    const handleAccountClick = () => {
+      history.push("/account")
+      setAnchorEl(false)
+    }
     const handleLogout = () => {
         console.log("here")
         dispatch(userActions.logoutUser());
@@ -53,19 +57,20 @@ const Account = props => {
                 open={open}
                 onClose={handleClose}
               >
-                {!user ? (
+                {!user ? 
+                  (
                     <div>
-                    <MenuItem onClick={handleClick}>Sign Up</MenuItem>
-                    <MenuItem onClick={handleClickLogin}>Log In</MenuItem></div>
-                    )
+                      <MenuItem onClick={handleClick}>Sign Up</MenuItem>
+                      <MenuItem onClick={handleClickLogin}>Log In</MenuItem>
+                    </div>
+                  )
                     :
-                    (
-                        <div> 
-                        <MenuItem onClick={() => history.push("/account")}>Account</MenuItem>
-                        <MenuItem onClick={handleLogout}>Log Out</MenuItem>
-                        </div>
-                        
-                    )
+                  (
+                    <div> 
+                      <MenuItem onClick={handleAccountClick}>Account</MenuItem>
+                      <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+                    </div>
+                  )
                 }
               </Menu>
             </div>
