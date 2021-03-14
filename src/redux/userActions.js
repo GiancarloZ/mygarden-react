@@ -1,11 +1,11 @@
 // API CONSTANTS
 
 const BASE_URL = 'http://localhost:8080/api';
-const HEROKU_URL = "https://skitchd-app-api.herokuapp.com"
-const USERS_URL = BASE_URL + '/users';
-const PERSIST_URL = BASE_URL + '/auth';
-const SIGNIN_URL = BASE_URL + '/signin';
-const SIGNUP_URL =  BASE_URL + '/signup';
+const HEROKU_URL = "https://gardenvy-node.herokuapp.com"
+const USERS_URL = HEROKU_URL + '/users';
+const PERSIST_URL = HEROKU_URL + '/auth';
+const SIGNIN_URL = HEROKU_URL + '/signin';
+const SIGNUP_URL =  HEROKU_URL + '/signup';
 const SPECIFIC_USER_URL = id => USERS_URL + '/' + id;
 
 // Redux Actions

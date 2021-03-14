@@ -60,7 +60,7 @@ const Dashboard = ({props}) => {
         const seed = Object.values(seedsList).filter((e) => plant.seedId === e.id)
         console.log(seed)
 
-        return seed[0].title
+        return seed[0]?.title
         } 
     }
     const dateConv = (date) => {

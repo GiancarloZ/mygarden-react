@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import {useHistory} from 'react-router-dom'
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import ChooseGarden from '../../Components/ChooseGarden';
+
 const useStyles = makeStyles(theme => ({
     root: {
         marginTop: 64,
@@ -14,33 +16,34 @@ const useStyles = makeStyles(theme => ({
       marginTop: 64
     },
 }))
-const Seeds = (props) => {
+const Seeds = ({props}) => {
     const classes = useStyles();
     const history = useHistory()
     const [count, setCount] = useState(1)
     const [loading, setLoading] = React.useState(false);
-    const seeds = props.props
-
+    const [open, setOpen] = React.useState(false);
+    const {seedsList, currentUser, gardensList} = props
+    console.log(props)
     const onPlantClick = () => {
-        history.push("/home")
+        setOpen(true)
     }
 
     useEffect(()=>{
         setLoading(true)
-        seeds && setLoading(false)
-    }, [seeds])
+        seedsList && setLoading(false)
+    }, [seedsList])
 
     const seedCard = (seedId, loading) => {
-        const seed = seeds[seedId]
+        const seed = seedsList[seedId]
         return (
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} sm={6} md={4} >
                         <Card style={{width: "100%"}}>
                             <CardHeader
                                 title={seed ? seed.title : ""}
                                 subheader={seed ? seed.scientificName : ""}
                             />
-                            <img style={{width: "50%", height: 200}} src={seed ? seed.images[0] : "https://www.pepperseeds.eu/pub/media/catalog/product/cache/b56a9049443cfaeedfe24666b14227c1/j/a/jalapeno_tam.jpg"}/>
-                            <img style={{width: "50%", height: 200}} src={seed ? seed.images[1] : "https://cdn.shopify.com/s/files/1/2954/2248/products/Pepper-Tam-Jalapeno-Vegetable-Ferry-Morse_1400x.jpg?v=1608227754"}/>
+                            <img style={{width: "50%", height: 200}} src={seed ? seed.images[0] : "https://www.pepperseeds.eu/pub/media/catalog/product/cache/b56a9049443cfaeedfe24666b14227c1/j/a/jalapeno_tam.jpg"} loading="lazy"/>
+                            <img style={{width: "50%", height: 200}} src={seed ? seed.images[1] : "https://cdn.shopify.com/s/files/1/2954/2248/products/Pepper-Tam-Jalapeno-Vegetable-Ferry-Morse_1400x.jpg?v=1608227754"} loading="lazy"/>
                         <CardContent>
                         <Typography variant="caption" color="textSecondary" component="p" gutterBottom>
                         Brand: <b>{seed ? seed.company : ""}</b>
@@ -55,7 +58,7 @@ const Seeds = (props) => {
                         <Button size='small'  onClick={() => history.push(`/seeds/${seed ? seed.id : ""}`)}>See More</Button>
                         </CardActions>
                         <CardActions style={{justifyContent: "space-between"}}>
-                            <IconButton aria-label="down" onClick={()=> count > 0 ? setCount(count - 1) : setCount(0)}>
+                            <IconButton aria-label="down" onClick={()=> count > 1 ? setCount(count - 1) : setCount(1)}>
                                 <ArrowLeftIcon/>
                             </IconButton>
                             <Typography variant="body1" color="textPrimary" component="p">
@@ -66,6 +69,7 @@ const Seeds = (props) => {
                                 <ArrowRightIcon/>
                             </IconButton>
                             <Button size='large' variant="outlined" onClick={onPlantClick}>Plant</Button>
+                            <ChooseGarden open={open} setOpen={setOpen} history={history} currentUser={currentUser} gardensList={gardensList} count={count}/>
                         </CardActions>
                         </Card> 
                     </Grid>
@@ -75,8 +79,8 @@ const Seeds = (props) => {
         <div className={classes.root}>
         <Container maxWidth="lg">
             <Grid container spacing={3}>
-            {!loading && seeds.length > 0 &&
-                Object.keys(seeds).map(
+            {!loading && seedsList.length > 0 &&
+                Object.keys(seedsList).map(
                     (seedId, loading) =>  
                     // seeds[seedId].name.includes(filter) &&
                     seedCard(seedId, loading)

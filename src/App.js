@@ -45,7 +45,9 @@ function App() {
   const user = useSelector(state => state.currentUser)
   const plants = useSelector(state => state.plants)
   const plantImages = useSelector(state => state.plantImages)
-  useEffect(()=>{
+
+  useEffect(async()=>{
+    await 
     dispatch(gardenActions.loadAllGardens())
     dispatch(seedActions.loadAllSeeds())
     dispatch(userActions.persistUser())
@@ -56,15 +58,15 @@ function App() {
 
   return (
     <>
-    <NavBar />
-    <div className={classes.main}>
-    <React.Suspense fallback={<span>Loading...</span>}>    
-      <Switch>
-        <Routes currentUser={user} seedsList={seeds} gardensList={gardens} plantsList={plants} plantImagesList={plantImages}/>
-      </Switch>
-    </React.Suspense>
+      <NavBar />
+      <div className={classes.main}>
+      <React.Suspense fallback={<span>Loading...</span>}>    
+        <Switch>
+          <Routes currentUser={user} seedsList={seeds} gardensList={gardens} plantsList={plants} plantImagesList={plantImages}/>
+        </Switch>
+      </React.Suspense>
     </div>
-</>
+    </>
     
   );
 }

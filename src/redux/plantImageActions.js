@@ -1,8 +1,8 @@
 // API CONSTANTS
 
 const BASE_URL = 'http://localhost:8080/api';
-const HEROKU_URL = ""
-const PLANT_IMAGES_URL = BASE_URL + '/plantimages';
+const HEROKU_URL = "https://gardenvy-node.herokuapp.com"
+const PLANT_IMAGES_URL = HEROKU_URL + '/plantimages';
 
 
 // Redux Actions

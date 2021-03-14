@@ -19,11 +19,11 @@ const Seed = ({props, match, history}) => {
     const classes = useStyles(); 
     const dispatch = useDispatch()
     const [seed, setSeed] = useState();
-
+    const {seedsList, currentUser, gardensList} = props
     useEffect(() => {
   
         const {id} = match.params
-        const foundSeed = props.filter(s => parseInt(id) === s.id);
+        const foundSeed = seedsList.filter(s => parseInt(id) === s.id);
         // Check if seed exists
         if (foundSeed.length < 1) {
             history.push('/home');
@@ -56,8 +56,8 @@ const Seed = ({props, match, history}) => {
                             title="Javascript"
                             style={{width: 150}}
                             /> */}
-                            <img style={{width: "50%", height: 200}} src={seed ? seed.images[0] : ""}/>
-                            <img style={{width: "50%", height: 200}} src={seed ? seed.images[1] : ""}/>
+                            <img style={{width: "50%", height: 200}} src={seed ? seed.images[0] : ""} loading="lazy" />
+                            <img style={{width: "50%", height: 200}} src={seed ? seed.images[1] : ""} loading="lazy"/>
                     <CardContent>
                     <Typography variant="caption" color="textSecondary" component="p" gutterBottom>
                        Brand: <b>{seed ? seed.company : ""}</b>
@@ -75,10 +75,10 @@ const Seed = ({props, match, history}) => {
                         title={seed ? seed.description : ""}
                         />
                     <CardContent>
+                    <Divider/>
                     <Typography variant="h5" color="textSecondary" gutterBottom>
                         <b><u> How to Grow:</u></b> <br></br>
                     </Typography>
-                    <Divider/>
                     <Typography variant="h6" color="textSecondary" gutterBottom>
                         {seed ? seed.howToGrow : ""}
                     </Typography>

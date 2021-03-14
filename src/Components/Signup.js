@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     padding: theme.spacing(3),
-    height: "100vh"
+    height: "80vh"
   },
   alert: {
     width: '100%',

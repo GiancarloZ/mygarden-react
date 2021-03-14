@@ -22,8 +22,8 @@ const Routes = ({seedsList, gardensList, currentUser, plantsList, plantImagesLis
         <>
         <Redirect exact from="/" to="/home" render={(props) => <Home {...props}/>}/>
         <Route exact path="/home" render={() => <Home props={{seedsList, gardensList, currentUser, plantsList}}/>}/> 
-        <Route exact path="/seeds" render={() => <Seeds props={seedsList} />} />
-        <Route exact path="/seeds/:id" render={() => <Seed props={seedsList} />} />
+        <Route exact path="/seeds" render={() => <Seeds props={{seedsList, currentUser, gardensList}} />} />
+        <Route exact path="/seeds/:id" render={() => <Seed props={{seedsList, currentUser, gardensList}} />} />
         <Route exact path="/login" render={props => <Login {...props} />} />
         <Route exact path="/signup" render={props => <Signup {...props} />} />
         <Route exact path="/gardens" render={() => <Gardens props={{gardensList, plantsList, plantImagesList}} />} />
