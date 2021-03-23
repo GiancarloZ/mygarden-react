@@ -1,6 +1,6 @@
 // API CONSTANTS
 
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = 'http://localhost:3001/api';
 const HEROKU_URL = "https://gardenvy-node.herokuapp.com/api"
 const SEEDS_URL = HEROKU_URL + '/seeds';
 // const PERSIST_URL = BASE_URL + '/persist';
